@@ -16,6 +16,190 @@ import (
 	//"github.com/aws/aws-sdk-go/aws/session"
 )
 
+type Finding struct {
+		AccountID   string `json:"accountId"`
+		Arn         string `json:"arn"`
+		Confidence  int    `json:"confidence"`
+		CreatedAt   string `json:"createdAt"`
+		Description string `json:"description"`
+		ID          string `json:"id"`
+		Partition   string `json:"partition"`
+		Region      string `json:"region"`
+		Resource    struct {
+			AccessKeyDetails struct {
+				AccessKeyID string `json:"accessKeyId"`
+				PrincipalID string `json:"principalId"`
+				UserName    string `json:"userName"`
+				UserType    string `json:"userType"`
+			} `json:"accessKeyDetails"`
+			InstanceDetails struct {
+				AvailabilityZone   string `json:"availabilityZone"`
+				IamInstanceProfile struct {
+					Arn string `json:"arn"`
+					ID  string `json:"id"`
+				} `json:"iamInstanceProfile"`
+				ImageDescription  string `json:"imageDescription"`
+				ImageID           string `json:"imageId"`
+				InstanceID        string `json:"instanceId"`
+				InstanceState     string `json:"instanceState"`
+				InstanceType      string `json:"instanceType"`
+				LaunchTime        string `json:"launchTime"`
+				NetworkInterfaces []struct {
+					Ipv6Addresses      []string `json:"ipv6Addresses"`
+					NetworkInterfaceID string   `json:"networkInterfaceId"`
+					PrivateDNSName     string   `json:"privateDnsName"`
+					PrivateIPAddress   string   `json:"privateIpAddress"`
+					PrivateIPAddresses []struct {
+						PrivateDNSName   string `json:"privateDnsName"`
+						PrivateIPAddress string `json:"privateIpAddress"`
+					} `json:"privateIpAddresses"`
+					PublicDNSName  string `json:"publicDnsName"`
+					PublicIP       string `json:"publicIp"`
+					SecurityGroups []struct {
+						GroupID   string `json:"groupId"`
+						GroupName string `json:"groupName"`
+					} `json:"securityGroups"`
+					SubnetID string `json:"subnetId"`
+					VpcID    string `json:"vpcId"`
+				} `json:"networkInterfaces"`
+				OutpostArn   string `json:"outpostArn"`
+				Platform     string `json:"platform"`
+				ProductCodes []struct {
+					Code        string `json:"code"`
+					ProductType string `json:"productType"`
+				} `json:"productCodes"`
+				Tags []struct {
+					Key   string `json:"key"`
+					Value string `json:"value"`
+				} `json:"tags"`
+			} `json:"instanceDetails"`
+			ResourceType string `json:"resourceType"`
+		} `json:"resource"`
+		SchemaVersion string `json:"schemaVersion"`
+		Service       struct {
+			Action struct {
+				ActionType       string `json:"actionType"`
+				AwsAPICallAction struct {
+					API           string `json:"api"`
+					CallerType    string `json:"callerType"`
+					DomainDetails struct {
+						Domain string `json:"domain"`
+					} `json:"domainDetails"`
+					RemoteIPDetails struct {
+						City struct {
+							CityName string `json:"cityName"`
+						} `json:"city"`
+						Country struct {
+							CountryCode string `json:"countryCode"`
+							CountryName string `json:"countryName"`
+						} `json:"country"`
+						GeoLocation struct {
+							Lat int `json:"lat"`
+							Lon int `json:"lon"`
+						} `json:"geoLocation"`
+						IPAddressV4  string `json:"ipAddressV4"`
+						Organization struct {
+							Asn    string `json:"asn"`
+							AsnOrg string `json:"asnOrg"`
+							Isp    string `json:"isp"`
+							Org    string `json:"org"`
+						} `json:"organization"`
+					} `json:"remoteIpDetails"`
+					ServiceName string `json:"serviceName"`
+				} `json:"awsApiCallAction"`
+				DNSRequestAction struct {
+					Domain string `json:"domain"`
+				} `json:"dnsRequestAction"`
+				NetworkConnectionAction struct {
+					Blocked             bool   `json:"blocked"`
+					ConnectionDirection string `json:"connectionDirection"`
+					LocalIPDetails      struct {
+						IPAddressV4 string `json:"ipAddressV4"`
+					} `json:"localIpDetails"`
+					LocalPortDetails struct {
+						Port     int    `json:"port"`
+						PortName string `json:"portName"`
+					} `json:"localPortDetails"`
+					Protocol        string `json:"protocol"`
+					RemoteIPDetails struct {
+						City struct {
+							CityName string `json:"cityName"`
+						} `json:"city"`
+						Country struct {
+							CountryCode string `json:"countryCode"`
+							CountryName string `json:"countryName"`
+						} `json:"country"`
+						GeoLocation struct {
+							Lat int `json:"lat"`
+							Lon int `json:"lon"`
+						} `json:"geoLocation"`
+						IPAddressV4  string `json:"ipAddressV4"`
+						Organization struct {
+							Asn    string `json:"asn"`
+							AsnOrg string `json:"asnOrg"`
+							Isp    string `json:"isp"`
+							Org    string `json:"org"`
+						} `json:"organization"`
+					} `json:"remoteIpDetails"`
+					RemotePortDetails struct {
+						Port     int    `json:"port"`
+						PortName string `json:"portName"`
+					} `json:"remotePortDetails"`
+				} `json:"networkConnectionAction"`
+				PortProbeAction struct {
+					Blocked          bool `json:"blocked"`
+					PortProbeDetails []struct {
+						LocalIPDetails struct {
+							IPAddressV4 string `json:"ipAddressV4"`
+						} `json:"localIpDetails"`
+						LocalPortDetails struct {
+							Port     int    `json:"port"`
+							PortName string `json:"portName"`
+						} `json:"localPortDetails"`
+						RemoteIPDetails struct {
+							City struct {
+								CityName string `json:"cityName"`
+							} `json:"city"`
+							Country struct {
+								CountryCode string `json:"countryCode"`
+								CountryName string `json:"countryName"`
+							} `json:"country"`
+							GeoLocation struct {
+								Lat int `json:"lat"`
+								Lon int `json:"lon"`
+							} `json:"geoLocation"`
+							IPAddressV4  string `json:"ipAddressV4"`
+							Organization struct {
+								Asn    string `json:"asn"`
+								AsnOrg string `json:"asnOrg"`
+								Isp    string `json:"isp"`
+								Org    string `json:"org"`
+							} `json:"organization"`
+						} `json:"remoteIpDetails"`
+					} `json:"portProbeDetails"`
+				} `json:"portProbeAction"`
+			} `json:"action"`
+			Archived       bool   `json:"archived"`
+			Count          int    `json:"count"`
+			DetectorID     string `json:"detectorId"`
+			EventFirstSeen string `json:"eventFirstSeen"`
+			EventLastSeen  string `json:"eventLastSeen"`
+			Evidence       struct {
+				ThreatIntelligenceDetails []struct {
+					ThreatListName string   `json:"threatListName"`
+					ThreatNames    []string `json:"threatNames"`
+				} `json:"threatIntelligenceDetails"`
+			} `json:"evidence"`
+			ResourceRole string `json:"resourceRole"`
+			ServiceName  string `json:"serviceName"`
+			UserFeedback string `json:"userFeedback"`
+		} `json:"service"`
+		Severity  int    `json:"severity"`
+		Title     string `json:"title"`
+		Type      string `json:"type"`
+		UpdatedAt string `json:"updatedAt"`
+}
+
 type Section struct {
 	ActivityTitle    string `json:"activityTitle"`
 	ActivitySubtitle string `json:"activitySubtitle"`
@@ -65,6 +249,7 @@ type TeamsMessage struct {
 }
 
 type Detail struct {
+	//Trusted Advisor
 	CheckName       string `json:"check-name"`
 	CheckItemDetail struct {
 		Status       string `json:"Status"`
@@ -77,6 +262,8 @@ type Detail struct {
 	Status     string `json:"status"`
 	ResourceID string `json:"resource_id"`
 	UUID       string `json:"uuid"`
+
+	//AWS Health
 	EventArn          string `json:"eventArn"`
 	Service           string `json:"service"`
 	EventTypeCode     string `json:"eventTypeCode"`
@@ -89,6 +276,15 @@ type Detail struct {
 	AffectedEntities []struct {
 		EntityValue string `json:"entityValue"`
 	} `json:"affectedEntities"`
+
+	//Spot Instances Interruption Notice
+	InstanceID     string `json:"instance-id"`
+	InstanceAction string `json:"instance-action"`
+
+	// Guard Duty
+	Findings      []Finding `json:"findings"`
+	
+	// Inspector
 }
 
 type SNSMessage struct {
@@ -100,7 +296,7 @@ type SNSMessage struct {
 	Time       time.Time     `json:"time"`
 	Region     string        `json:"region"`
 	Resources  []interface{} `json:"resources"`
-	Detail     Detail         `json:"detail"`
+	Detail     Detail        `json:"detail"`
 }
 
 func sendToWebhook(chatApplication string, webhook string, message TeamsMessage) error {
@@ -134,43 +330,43 @@ func handler(ctx context.Context, event events.SNSEvent) {
 			switch snsMessage.Source {
 			case "aws.health":
 				message = TeamsMessage{
-					Type:             "MessageCard",
-					Context:          "http://schema.org/extensions",
-					ThemeColor:       "fff30b",
-					Summary:          snsMessage.DetailType,
-					Sections:         []Section{
+					Type:       "MessageCard",
+					Context:    "http://schema.org/extensions",
+					ThemeColor: "fff30b",
+					Summary:    snsMessage.DetailType,
+					Sections: []Section{
 						{
 							ActivityTitle:    snsMessage.Detail.EventTypeCode,
 							ActivitySubtitle: snsMessage.Detail.EventTypeCategory,
 							ActivityImage:    "",
-							Facts:            []Fact{
+							Facts: []Fact{
 								{
 									Name:  "Description",
 									Value: snsMessage.Detail.EventDescription[0].LatestDescription,
 								},
 							},
-							Markdown:         true,
+							Markdown: true,
 						},
 					},
 					PotentialActions: nil,
 				}
 			case "aws.trustedadvisor":
-				taUri := fmt.Sprintf("https://console.aws.amazon.com/trustedadvisor/home?region=%s#/category/service-limits",snsMessage.Detail.CheckItemDetail.Region)
+				taUri := fmt.Sprintf("https://console.aws.amazon.com/trustedadvisor/home?region=%s#/category/service-limits", snsMessage.Detail.CheckItemDetail.Region)
 				colorMap := map[string]string{
-					"Red": "d7000b",
+					"Red":    "d7000b",
 					"Yellow": "fff30b",
 				}
-				message = TeamsMessage {
-					Type:             "MessageCard",
-					Context:          "http://schema.org/extensions",
-					ThemeColor:       colorMap[snsMessage.Detail.CheckItemDetail.Status],
-					Summary:          snsMessage.Detail.CheckItemDetail.LimitName,
-					Sections:         []Section{
+				message = TeamsMessage{
+					Type:       "MessageCard",
+					Context:    "http://schema.org/extensions",
+					ThemeColor: colorMap[snsMessage.Detail.CheckItemDetail.Status],
+					Summary:    snsMessage.Detail.CheckItemDetail.LimitName,
+					Sections: []Section{
 						{
 							ActivityTitle:    "AWS service limit monitor",
 							ActivitySubtitle: snsMessage.Detail.CheckName,
 							ActivityImage:    "",
-							Facts:            []Fact{
+							Facts: []Fact{
 								{
 									Name:  "Service",
 									Value: snsMessage.Detail.CheckItemDetail.Service,
@@ -180,22 +376,22 @@ func handler(ctx context.Context, event events.SNSEvent) {
 									Value: snsMessage.Detail.CheckItemDetail.Region,
 								},
 								{
-									Name: "CurrentValue",
+									Name:  "CurrentValue",
 									Value: snsMessage.Detail.CheckItemDetail.CurrentUsage,
 								},
 								{
-									Name: "LimitAmount",
+									Name:  "LimitAmount",
 									Value: snsMessage.Detail.CheckItemDetail.LimitAmount,
 								},
 							},
-							Markdown:         true,
+							Markdown: true,
 						},
 					},
 					PotentialActions: []PotentialAction{
 						{
-							Type:    "OpenUri",
-							Name:    "More details",
-							Inputs:  nil,
+							Type:   "OpenUri",
+							Name:   "More details",
+							Inputs: nil,
 							Targets: []PotentialActionTarget{
 								{
 									OS:  "default",
@@ -206,29 +402,73 @@ func handler(ctx context.Context, event events.SNSEvent) {
 						},
 					},
 				}
-			default:
+			case "aws.ec2":
+				colorMap := map[string]string{
+					"terminate":    "d7000b",
+					"stop": "fff30b",
+					"hibernate": "fff30b",
+				}
+				summary := fmt.Sprintf("Spot instance %s will %s",snsMessage.Detail.InstanceID,snsMessage.Detail.InstanceAction)
 				message = TeamsMessage{
-					Type:             "MessageCard",
-					Context:          "http://schema.org/extensions",
-					ThemeColor:       "fff30b",
-					Summary:          "Coming soon",
-					Sections:         []Section{
+					Type:       "MessageCard",
+					Context:    "http://schema.org/extensions",
+					ThemeColor: colorMap[snsMessage.Detail.InstanceAction],
+					Summary: summary,
+					Sections: []Section{
+						{
+							ActivityTitle:    "AWS Spot Instance will " + snsMessage.Detail.InstanceAction,
+							ActivitySubtitle: "Interruption Notice",
+							ActivityImage:    "",
+							Facts: []Fact{
+								{
+									Name:  "Instance ID",
+									Value: snsMessage.Detail.InstanceID,
+								},
+								{
+									Name:  "Action",
+									Value: snsMessage.Detail.InstanceAction,
+								},
+							},
+							Markdown: true,
+						},
+					},
+					PotentialActions: []PotentialAction{
+					},
+				}
+			//case "aws.guardduty":
+			//	if len(snsMessage.Detail.Findings) >0 {
+			//		for _, finding := range snsMessage.Detail.Findings {
+			//			fmt.Print(finding.ID)
+			//		}
+			//	}
+			default:
+				//b, _ := json.Marshal(snsMessage.Detail)
+				message = TeamsMessage{
+					Type:       "MessageCard",
+					Context:    "http://schema.org/extensions",
+					ThemeColor: "fff30b",
+					Summary:    "Coming soon",
+					Sections: []Section{
 						{
 							ActivityTitle:    snsMessage.Detail.EventTypeCode,
 							ActivitySubtitle: snsMessage.Detail.EventTypeCategory,
 							ActivityImage:    "",
-							Facts:            []Fact{
+							Facts: []Fact{
 								{
 									Name:  "Source Type",
 									Value: snsMessage.Source,
 								},
+								{
+									Name:  "message",
+									Value: record.SNS.Message,
+								},
 							},
-							Markdown:         true,
+							Markdown: true,
 						},
 					},
 					PotentialActions: nil,
 				}
-			
+
 			}
 			err = sendToWebhook(chatApplication, webhookURL, message)
 			if err != nil {
