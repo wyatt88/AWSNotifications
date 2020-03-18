@@ -131,7 +131,8 @@ func handler(ctx context.Context, event events.SNSEvent) {
 			if err != nil {
 				fmt.Print(err)
 			}
-			if snsMessage.Source == "aws.health" {
+			switch snsMessage.Source {
+			case "aws.health":
 				message = TeamsMessage{
 					Type:             "MessageCard",
 					Context:          "http://schema.org/extensions",
@@ -153,13 +154,13 @@ func handler(ctx context.Context, event events.SNSEvent) {
 					},
 					PotentialActions: nil,
 				}
-			} else if snsMessage.Source == "aws.trustedadvisor" {
+			case "aws.trustedadvisor":
 				taUri := fmt.Sprintf("https://console.aws.amazon.com/trustedadvisor/home?region=%s#/category/service-limits",snsMessage.Detail.CheckItemDetail.Region)
 				colorMap := map[string]string{
 					"Red": "d7000b",
 					"Yellow": "fff30b",
 				}
-				message = TeamsMessage{
+				message = TeamsMessage {
 					Type:             "MessageCard",
 					Context:          "http://schema.org/extensions",
 					ThemeColor:       colorMap[snsMessage.Detail.CheckItemDetail.Status],
@@ -205,6 +206,29 @@ func handler(ctx context.Context, event events.SNSEvent) {
 						},
 					},
 				}
+			default:
+				message = TeamsMessage{
+					Type:             "MessageCard",
+					Context:          "http://schema.org/extensions",
+					ThemeColor:       "fff30b",
+					Summary:          "Coming soon",
+					Sections:         []Section{
+						{
+							ActivityTitle:    snsMessage.Detail.EventTypeCode,
+							ActivitySubtitle: snsMessage.Detail.EventTypeCategory,
+							ActivityImage:    "",
+							Facts:            []Fact{
+								{
+									Name:  "Source Type",
+									Value: snsMessage.Source,
+								},
+							},
+							Markdown:         true,
+						},
+					},
+					PotentialActions: nil,
+				}
+			
 			}
 			err = sendToWebhook(chatApplication, webhookURL, message)
 			if err != nil {
